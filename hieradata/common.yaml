@@ -1,3 +1,9 @@
 ---
 classes:
-  -
+  - nginx
+  - nginx::server
+
+# puppet-ssl parameters
+ssl::params::ssl_path: '/etc/ssl'
+ssl::params::ssl_cert_file: %{ssl_path}/certs/<cert_name>.pem
+ssl::params::ssl_key_file: %{ssl_path}/private/<key_name>.key
