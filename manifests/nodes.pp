@@ -8,7 +8,7 @@ node default {
     dest           => 'https://www.gov.uk',
   }
 
-  file {$ssl::params::ssl_cert_file:
+  file {"$ssl::params::ssl_path/$ssl::params::ssl_cert_file":
     ensure	   => file,
     owner	   => root,
     group	   => root,
@@ -16,7 +16,7 @@ node default {
     content 	   => hiera(ssl_cert),
   }
 
-  file {$ssl::params::ssl_key_file:
+  file {"$ssl::params::ssl_path/$ssl::params::ssl_key_file":
     ensure	   => file,
     owner	   => root,
     group	   => root,

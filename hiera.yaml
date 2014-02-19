@@ -3,8 +3,8 @@
   - "env.%{::environment}"
   - common
 :backends:
-  - yaml
   - eyaml
+  - yaml
 :yaml:
   :datadir: '/vagrant/hieradata'
 :eyaml:
