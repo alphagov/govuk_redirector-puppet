@@ -6,9 +6,9 @@ This repo contains the puppet config for the web redirector for gov.uk
 
 Before running puppet, we need to do a bit of gpg to store the certificates in hiera. The operation is as follows:
 
-1. mkdir /etc/puppet /etc/puppet/keys && chown -R puppet:puppet /etc/puppet && chmod 700 /etc/puppet/keys
+* mkdir /etc/puppet /etc/puppet/keys && chown -R puppet:puppet /etc/puppet && chmod 700 /etc/puppet/keys
 
-2. Generate the keys in the right place(no passphrase):
+* Generate the keys in the right place(no passphrase):
 ```
 	Data:
 		User:    puppet
@@ -17,19 +17,19 @@ Before running puppet, we need to do a bit of gpg to store the certificates in h
 	Command:
 		gpg --homedir /etc/puppet/keys --gen-key
 ```
-3. Import the various team members
+* Import the various team members
 ```
 	gpg --homedir /etc/puppet/keys --import <team_member>
 ```
-4. Chown the files in /etc/puppet/keys to puppet
+* Chown the files in /etc/puppet/keys to puppet
 
-5. Once the team members are imported, signed and trusted, create a file with list of those users
+* Once the team members are imported, signed and trusted, create a file with list of those users
 
-6. Run the following to generate your encrypted block:
+* Run the following to generate your encrypted block:
 ```
 	eyaml encrypt -n gpg --gpg-recipients-file <file_user_location> --gpg-gnupghome /etc/puppet/keys -f <cert_file/key_file> -o block
 ```
-7. Take the block and paste it into the hiera document into the key provided:
+* Take the block and paste it into the hiera document into the key provided:
 ```
 	encrypted-property: >
 	    ENC[GPG,Y22exl+OvjDe+drmik2XEeD3VQtl1uZJXFFF2NnrMXDWx0csyqLB/2NOWefv
