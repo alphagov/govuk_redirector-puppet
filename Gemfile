@@ -17,3 +17,7 @@ gem 'puppet-syntax'
 gem 'puppet-lint', '~> 0.3.0'
 gem 'rspec-puppet', '~> 0.1.0'
 gem 'puppetlabs_spec_helper', '~> 0.4.0'
+
+# eyaml
+gem 'hiera-eyaml', '~> 2.0.0'
+gem 'hiera-eyaml', '~> 0.4'

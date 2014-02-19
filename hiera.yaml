@@ -4,5 +4,10 @@
   - common
 :backends:
   - yaml
+  - eyaml
 :yaml:
   :datadir: '/vagrant/hieradata'
+:eyaml:
+  :datadir: '/vagrant/hieradata'
+  :extension: 'yaml'
+  :gpg_gnupghome: '/etc/puppet/keys'

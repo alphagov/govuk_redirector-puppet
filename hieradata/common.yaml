@@ -5,5 +5,11 @@ classes:
 
 # puppet-ssl parameters
 ssl::params::ssl_path: '/etc/ssl'
-ssl::params::ssl_cert_file: %{ssl_path}/certs/<cert_name>.pem
-ssl::params::ssl_key_file: %{ssl_path}/private/<key_name>.key
+ssl::params::ssl_cert_file: %{ssl_path}/certs/gov.uk.crt
+ssl::params::ssl_key_file: %{ssl_path}/private/gov.uk.key
+
+# ssl data
+ssl_cert : >
+    ENC[GPG,<encrypted_string>]
+ssl_key : >
+    ENC[GPG,<encrypted_string>]

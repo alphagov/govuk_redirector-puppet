@@ -3,6 +3,22 @@ FORGE
   specs:
     puppetlabs/stdlib (3.2.0)
 
+GIT
+  remote: git://github.com/alphagov/puppet-nginx.git
+  ref: master
+  sha: 490c76104ad14c9c300b618fa298ff39b059091b
+  specs:
+    nginx (0.0.1)
+
+GIT
+  remote: git://github.com/alphagov/puppet-ssl.git
+  ref: master
+  sha: 23bbb5ab57f26269acce3d4b43e643781747a551
+  specs:
+    ssl (0.0.1)
+
 DEPENDENCIES
+  nginx (>= 0)
   puppetlabs/stdlib (~> 3.0)
+  ssl (>= 0)
 
