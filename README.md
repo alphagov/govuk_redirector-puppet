@@ -12,7 +12,7 @@ apt-get update
 apt-get install rubygems
 gem install hiera-eyaml hiera-eyaml-gpg
 ```
-* mkdir /etc/puppet /etc/puppet/keys && chown -R puppet:puppet /etc/puppet && chmod 700 /etc/puppet/keys
+* mkdir -p /etc/puppet /etc/puppet/keys && chown -R puppet:puppet /etc/puppet && chmod 700 /etc/puppet/keys
 
 * Generate/import the puppet private and public keys in to home directory (must have no passphrase):
 ```
