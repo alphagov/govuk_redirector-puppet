@@ -6,8 +6,8 @@
   - eyaml
   - yaml
 :yaml:
-  :datadir: '/vagrant/hieradata'
+  :datadir: '%{::settings::manifestdir}/../hieradata'
 :eyaml:
-  :datadir: '/vagrant/hieradata'
+  :datadir: '%{::settings::manifestdir}/../hieradata'
   :extension: 'yaml'
   :gpg_gnupghome: '/etc/puppet/keys'
