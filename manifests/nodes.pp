@@ -2,10 +2,12 @@
 node default {
   hiera_include('classes')
 
-  nginx::vhost::redirect {'gov.uk':
+  $origdom = hiera(origdom)
+
+  nginx::vhost::redirect {$origdom:
     ssl            => true,
     isdefaultvhost => true,
-    dest           => 'https://www.gov.uk',
+    dest           => "https://www.$origdom",
   }
 
   file {"$ssl::params::ssl_path/$ssl::params::ssl_cert_file":

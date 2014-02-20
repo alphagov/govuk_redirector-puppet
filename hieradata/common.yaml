@@ -3,10 +3,12 @@ classes:
   - nginx
   - nginx::server
 
+origdom: gov.uk
+
 # puppet-ssl parameters
 ssl::params::ssl_path: '/etc/ssl'
-ssl::params::ssl_cert_file: 'certs/gov.uk.crt'
-ssl::params::ssl_key_file: 'private/gov.uk.key'
+ssl::params::ssl_cert_file: 'certs/%{hiera("origdom")}.crt'
+ssl::params::ssl_key_file: 'private/%{hiera("origdom")}.key'
 
 # ssl data
 ssl_cert : >
