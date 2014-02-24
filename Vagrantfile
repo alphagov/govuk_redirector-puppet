@@ -3,7 +3,7 @@
 
 nodes = {
   'node0' => {:ip => '172.16.10.10'},
-  'mirror1' => {:ip => '172.16.10.11'},
+  'node1' => {:ip => '172.16.10.11'},
 }
 node_defaults = {
   :domain => 'internal',

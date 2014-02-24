@@ -11,34 +11,35 @@ classes:
   - ssh::server
   - ufw
   - clamav
+  - redirector
+  - redirector::firewall
+  - redirector::nginx
 
 puppet::puppet_ensure: '3.2.3-1puppetlabs1'
 puppet::facter_ensure: '1.7.2-1puppetlabs1'
 puppet::cron_command: '/opt/puppet/tools/puppet-apply --environment %{environment}'
 puppet::cron_ensure: 'present'
 
-# nginx config
-origdom: gov.uk
+# redirector config
+redirector::nginx::origdom: gov.uk
+redirector::ppa: "ppa:gds/govuk"
 
 # puppet-ssl parameters
 ssl::params::ssl_path: '/etc/ssl'
-ssl::params::ssl_cert_file: 'certs/%{hiera("origdom")}.crt'
-ssl::params::ssl_key_file: 'private/%{hiera("origdom")}.key'
+ssl::params::ssl_cert_file: 'certs/%{hiera("redirector::nginx::origdom")}.crt'
+ssl::params::ssl_key_file: 'private/%{hiera("redirector::nginx::origdom")}.key'
 
 # ssl data
-ssl_cert : >
+redirector::nginx::ssl_cert : >
     ENC[GPG,<encrypted_string>]
-ssl_key : >
+redirector::nginx::ssl_key : >
     ENC[GPG,<encrypted_string>]
-
-# PPA
-ppa: "ppa:gds/govuk"
 
 # Versions
 nginx::server::version: 1.4.4-1~precise0
 
 # Account management
-gds_sudo:
+redirector::gds_sudo:
   admins:
     priority: 10
     content: "%sudo ALL=(ALL) NOPASSWD: ALL"
