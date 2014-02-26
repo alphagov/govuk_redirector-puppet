@@ -1,0 +1,16 @@
+#! /bin/bash
+
+# Install dependancies
+apt-get install -y rubygems 
+gem install hiera-eyaml hiera-eyaml-gpg
+
+# Create the folders and chown as required
+mkdir -p /etc/puppet /etc/puppet/keys
+chown -R puppet:puppet /etc/puppet
+chmod 700 /etc/puppet/keys
+
+# Creat the keys
+gpg --batch --homedir /etc/puppet/keys --gen-key genkey.data
+
+# Chown the keys
+chown -R puppet:puppet /etc/puppet/keys

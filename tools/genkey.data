@@ -1,0 +1,11 @@
+%echo Generating a basic OpenPGP key
+Key-Type: RSA
+Key-Length: 2048
+Subkey-Type: RSA
+Subkey-Length: 2048
+Name-Real: Puppet
+Name-Comment: Puppet redirector key generator
+Name-Email: puppet@digital.cabinet-office.gov.uk
+Expire-Date: 0
+%commit
+%echo done
