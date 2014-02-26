@@ -7,6 +7,7 @@ This repo contains the puppet config for the web redirector for gov.uk
 Before running puppet, we need to do a bit of gpg to store the certificates in hiera. The operation is as follows:
 
 1. Run tools/genkey to generate the gpg keys in /etc/puppet/keys
+
 2. Import the various team members
   ```
   gpg --homedir /etc/puppet/keys --import <team_member>
