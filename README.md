@@ -6,27 +6,16 @@ This repo contains the puppet config for the web redirector for gov.uk
 
 Before running puppet, we need to do a bit of gpg to store the certificates in hiera. The operation is as follows:
 
-1. Install the following pre-requisites:
-  ```
-  apt-get update
-  apt-get install rubygems
-  gem install hiera-eyaml hiera-eyaml-gpg
-  ```
-2. mkdir -p /etc/puppet /etc/puppet/keys && chown -R puppet:puppet /etc/puppet && chmod 700 /etc/puppet/keys
-
-3. Generate/import the puppet private and public keys in to home directory (must have no passphrase):
-  ```
-  gpg --homedir /etc/puppet/keys --gen-key
-  ```
-4. Import the various team members
+1. Run tools/genkey to generate the gpg keys in /etc/puppet/keys
+2. Import the various team members
   ```
   gpg --homedir /etc/puppet/keys --import <team_member>
   ```
-5. Chown the files in /etc/puppet/keys to puppet
+3. Chown the files in /etc/puppet/keys to puppet
 
-6. Add the gpg puppet email just created to hieradata/hiera-eyaml-gpg.recipients
+4. Add the gpg puppet email just created to hieradata/hiera-eyaml-gpg.recipients
 
-7. Add an encrypted block to the common.yaml file using one of these two methods:
+5. Add an encrypted block to the common.yaml file using one of these two methods:
 
   1. ##### Copy and Paste an encrypted block
 
