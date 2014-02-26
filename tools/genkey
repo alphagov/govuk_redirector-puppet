@@ -1,5 +1,9 @@
 #! /bin/bash
 
+# Setup Variables
+scrp="`dirname \"$0\"`" 
+scrp="`( cd \"$scrp\" && pwd )`"
+
 # Install dependancies
 apt-get install -y rubygems 
 gem install hiera-eyaml hiera-eyaml-gpg
@@ -10,7 +14,7 @@ chown -R puppet:puppet /etc/puppet
 chmod 700 /etc/puppet/keys
 
 # Creat the keys
-gpg --batch --homedir /etc/puppet/keys --gen-key genkey.data
+gpg --batch --homedir /etc/puppet/keys --gen-key $scrp/genkey.data
 
 # Chown the keys
 chown -R puppet:puppet /etc/puppet/keys
