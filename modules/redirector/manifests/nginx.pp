@@ -29,7 +29,7 @@
 #
 # === Copyright
 #
-# Copyright 2014 Harry Panayiotou
+# Copyright 2014 Crown Copyright
 #
 class redirector::nginx (
   $origdom  = '',
