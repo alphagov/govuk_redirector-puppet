@@ -1,6 +1,6 @@
-# Redirector Puppet Config
+# GOV.UK 301 Redirector Puppet Config
 
-This repo contains the puppet config for the web redirector for gov.uk
+This repo contains the puppet config for the 301 redirector for gov.uk. This redirects every request for gov.uk to www.gov.uk.
 
 # Pre-requisites
 
