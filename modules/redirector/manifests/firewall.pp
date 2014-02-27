@@ -8,7 +8,7 @@
 #
 # === Examples
 #
-#  class {'redirector::firewall'}
+#  include redirector::firewall
 #
 # === Authors
 #
