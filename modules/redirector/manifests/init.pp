@@ -1,5 +1,38 @@
+# == Class: redirector
+#
+# The redirector class initialises the base requirements for the
+# gov.uk redirector. This includes setting up a ppa and and the sudoers file
+#
+# === Parameters
+#
+# [*ppa*]
+#  This is the ppa string for the public repository you wish to add.
+#  This is used to ensure you can install the version of nginx you need.
+#
+# [$gds_sudo*]
+#   This parameter allows you to pash a hash of sudo users to sudo::conf to
+#   set up the sudo file.
+#
+# === Variables
+#
+# === Examples
+#
+#  class { 'redirect':
+#    ppa      => ppa:example/example",
+#    gds_sudo => { admins => { priority => '10',
+#                              content => '%sudo ALL=(ALL) NOPASSWD: ALL"}}
+#  }
+#
+# === Authors
+#
+# Harry Panayiotou <Harry.Panayiotou@digital.cabinet-office.gov.uk>
+#
+# === Copyright
+#
+# Copyright 2014 Harry Panayiotou
+#
 class redirector (
-  $ppa 	    = '',
+  $ppa      = '',
   $gds_sudo = {}
 ){
 
@@ -7,5 +40,5 @@ class redirector (
   create_resources(sudo::conf,$gds_sudo)
 
   # Setup PPA
-  apt::ppa{"$ppa":}
+  apt::ppa{$ppa:}
 }
