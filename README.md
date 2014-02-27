@@ -1,50 +1,39 @@
-# puppet-skeleton
+# Redirector Puppet Config
 
-This is a skeleton project for Web Operations teams using Puppet. It ties
-together a suite of sensible defaults, best current practices, and re-usable
-code. The intentions of which are two-fold:
+This repo contains the puppet config for the web redirector for gov.uk
 
-- New projects can get started and bootstrapped faster without needing to
-  collate or re-writing this material themselves.
+# Pre-requisites
 
-- The standardisation and modularisation of these materials makes it easier
-  for ongoing improvements to be shared, in both directions, between
-  different teams.
+Before running puppet, we need to do a bit of gpg to store the certificates in hiera. The operation is as follows:
 
-It is suggested that you fork or clone this repository when starting out.
-Improvements can be submitted back with pull requests. Any significant
-portions of code should be modularised to a more appropriate distribution
-mechanism, such as Ruby gems or Vagrant plugins.
+1. Run tools/genkey to generate the gpg keys in /etc/puppet/keys
 
-## Batteries included
+2. Import the various team members
+  ```
+  gpg --homedir /etc/puppet/keys --import <team_member>
+  ```
+3. Chown the files in /etc/puppet/keys to puppet
 
-Here are the headline details of what's inside.
+4. Add the gpg puppet email just created to hieradata/hiera-eyaml-gpg.recipients
 
-### Module management
+5. Add an encrypted block to the common.yaml file using one of these two methods:
 
-[librarian-puppet](https://github.com/rodjek/librarian-puppet) is used to
-pull in external modules. Externalising modules makes them more re-usable.
+  1. ##### Copy and Paste an encrypted block
 
-As sample `Puppetfile` and `Puppetfile.lock` is included which contains
-[puppetlabs-stdlib](https://github.com/puppetlabs/puppetlabs-stdlib).
+    1. Run the following to generate your encrypted block, setting the gpg-recipients file to hieradata/hiera-eyaml-gpg.recipients:
+      ```
+      eyaml encrypt -n gpg --gpg-recipients-file <file_user_location> --gpg-gnupghome /etc/puppet/keys -f <cert_file/key_file> -o block
+      ```
+    2. Take the block and paste it into the hiera document into the keys provided. Paste the block below the key and indented as usual.
+    
+  2. ##### Copy and paste plaintext into the file
 
-### Tests
+    1. Run the following command to modify the file:
+      ```
+      eyaml edit -n gpg --gpg-gnupghome /etc/puppet/keys <yaml file>
+      ```
+    2. Copy and paste the cert and key blocks as plaintext into the relevant locations in the yaml file, save and quit
 
-A modularised `Rakefile` will call the following test suites, in order:
+# Testing
 
-- [puppet-syntax](https://github.com/alphagov/puppet-syntax) for syntax
-  checking Puppet manifests and templates.
-- [puppet-lint](https://github.com/rodjek/puppet-lint) to check manifests
-  against PuppetLabs style guide.
-- [rspec-puppet](https://github.com/rodjek/rspec-puppet) to run behaviour
-  tests against Puppet manifests, types and providers.
-
-### Vagrant
-
-A simple `Vagrantfile` demonstrating the use of a mutli-VM setup with a
-Puppet provisioner.
-
-## Requirements
-
-- [Ruby](http://www.ruby-lang.org/) and [Bundler](http://gembundler.com/) -- ideally with [rbenv](https://github.com/sstephenson/rbenv)
-- [Vagrant](http://www.vagrantup.com/) -- version >= 1.1
+Given the pre-requisites need to occur before a puppet run can be successful, please start your vagrant instances with the --no-provision flag so that you can provision them afterwards when required after all the above steps have been followed. 
