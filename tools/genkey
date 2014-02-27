@@ -13,8 +13,8 @@ mkdir -p /etc/puppet /etc/puppet/keys
 chown -R puppet:puppet /etc/puppet
 chmod 700 /etc/puppet/keys
 
-# Creat the keys
-sed -i s/^Name-Email$/Name-Email: puppet@`hostname -f`/ $scrpgenkey.data
+# Create the keys
+sed -i s/^Name-Email$/Name-Email: puppet@`hostname -f`/ $scrp/genkey.data
 gpg --batch --homedir /etc/puppet/keys --gen-key $scrp/genkey.data
 
 # Chown the keys
