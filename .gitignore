@@ -1,4 +1,6 @@
+*.swp
 /.bundle/
 /.tmp/
 /.vagrant/
 /vendor/
+/tools/keys/
