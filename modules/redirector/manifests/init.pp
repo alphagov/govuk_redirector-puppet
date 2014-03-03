@@ -40,5 +40,8 @@ class redirector (
   create_resources(sudo::conf,$gds_sudo)
 
   # Setup PPA
-  apt::ppa{$ppa:}
+  apt::ppa{$ppa:
+    before  => Class['nginx::server']
+  }
+
 }
