@@ -62,5 +62,4 @@ class redirector::nginx (
     content        => $ssl_key,
     notify         => Service['nginx'],
   }
-  
 }
