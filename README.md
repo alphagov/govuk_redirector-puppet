@@ -8,12 +8,12 @@ If you want to use hiera-eyaml-gpg, please follow the steps below:
 
 1. Run tools/genkey to generate the gpg keys in tools/keys
 
-2. Bring up your vagrant hosts or re-provision them to transfer the keys.
+2. Import the relevant user recipients
+  ```
+  gpg --homedir /etc/puppet/keys --import <users_key>
+  ```
 
-3. Import the users that you'd like using their email addresses
-  ```
-  gpg --homedir /etc/puppet/keys --import <users_email>
-  ```
+3. Bring up your vagrant hosts or re-provision them to transfer the keys.
 
 4. Add an encrypted block to the common.yaml file using one of these two methods:
 
