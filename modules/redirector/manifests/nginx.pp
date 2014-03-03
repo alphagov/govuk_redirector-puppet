@@ -20,7 +20,6 @@
 # === Examples
 #
 #  class { 'redirect::nginx':
-#    ppa      => "example.com",
 #  }
 #
 # === Authors
@@ -47,17 +46,21 @@ class redirector::nginx (
     ssl            => true,
     isdefaultvhost => true,
     dest           => "https://www.${origdom}",
+    notify         => Service['nginx'],
   }
 
   file {"${ssl::params::ssl_path}/${ssl::params::ssl_cert_file}":
     ensure         => file,
     mode           => '0644',
     content        => $ssl_cert,
+    notify         => Service['nginx'],
   }
 
   file {"${ssl::params::ssl_path}/${ssl::params::ssl_key_file}":
     ensure         => file,
     mode           => '0400',
     content        => $ssl_key,
+    notify         => Service['nginx'],
   }
+  
 }
