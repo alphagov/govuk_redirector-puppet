@@ -47,7 +47,7 @@ class redirector (
 
   # Add puppet user to recipients file
   file_line { $gpg_file:
-    line    => "puppet@$fqdn",
+    line    => "puppet@${::fqdn}",
     path    => $gpg_file,
   }
 
