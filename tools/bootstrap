@@ -9,4 +9,15 @@ if ! dpkg -l puppetlabs-release >/dev/null; then
   apt-get update -qq
 fi
 
-apt-get install -y -qq --no-upgrade ruby1.9.1 puppet='3.2.*' puppet-common='3.2.*'
+apt-get install -y -qq --no-upgrade ruby1.9.1 puppet='3.2.*' puppet-common='3.2.*' rubygems
+
+if [ -a /vagrant/tools/keys/pubring.gpg ]
+  then
+    gem install --no-ri --no-rdoc hiera-eyaml hiera-eyaml-gpg
+    mkdir -p /etc/puppet /etc/puppet/keys
+    chown -R puppet:puppet /etc/puppet
+    chmod 700 /etc/puppet/keys
+    cp -Rf /vagrant/tools/keys/* /etc/puppet/keys
+    chown -R puppet:puppet /etc/puppet/keys
+fi
+

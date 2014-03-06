@@ -4,18 +4,5 @@
 scrp="`dirname \"$0\"`" 
 scrp="`( cd \"$scrp\" && pwd )`"
 
-# Install dependancies
-apt-get install -y rubygems 
-gem install hiera-eyaml hiera-eyaml-gpg
-
-# Create the folders and chown as required
-mkdir -p /etc/puppet /etc/puppet/keys
-chown -R puppet:puppet /etc/puppet
-chmod 700 /etc/puppet/keys
-
-# Create the keys
-sed -i s/^Name-Email$/Name-Email: puppet@`hostname -f`/ $scrp/genkey.data
-gpg --batch --homedir /etc/puppet/keys --gen-key $scrp/genkey.data
-
-# Chown the keys
-chown -R puppet:puppet /etc/puppet/keys
+mkdir -p $scrp/keys
+gpg --batch --homedir $scrp/keys --gen-key $scrp/genkey.data

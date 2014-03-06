@@ -29,11 +29,6 @@ ssl::params::ssl_path: '/etc/ssl'
 ssl::params::ssl_cert_file: 'certs/%{hiera("redirector::nginx::origdom")}.crt'
 ssl::params::ssl_key_file: 'private/%{hiera("redirector::nginx::origdom")}.key'
 
-# ssl data
-redirector::nginx::ssl_cert : >
-    ENC[GPG,<encrypted_string>]
-redirector::nginx::ssl_key : >
-    ENC[GPG,<encrypted_string>]
 
 # Versions
 nginx::server::version: 1.4.4-1~precise0

@@ -33,12 +33,22 @@
 #
 class redirector (
   $ppa      = '',
-  $gds_sudo = {}
+  $gds_sudo = {},
+  $gpg_file = '',
 ){
 
   # Setup sudoers
   create_resources(sudo::conf,$gds_sudo)
 
   # Setup PPA
-  apt::ppa{$ppa:}
+  apt::ppa{$ppa:
+    before  => Class['nginx::server']
+  }
+
+  # Add puppet user to recipients file
+  file_line { $gpg_file:
+    line    => "puppet@${::fqdn}",
+    path    => $gpg_file,
+  }
+
 }
