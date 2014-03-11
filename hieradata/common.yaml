@@ -1,9 +1,8 @@
 ---
 classes:
   - stdlib
-  - nginx
-  - nginx::server
   - gds_accounts
+  - nginx
   - apt::unattended_upgrades
   - apt
   - harden
@@ -25,13 +24,35 @@ redirector::nginx::origdom: gov.uk
 redirector::ppa: "ppa:gds/govuk"
 
 # puppet-ssl parameters
-ssl::params::ssl_path: '/etc/ssl'
-ssl::params::ssl_cert_file: 'certs/%{hiera("redirector::nginx::origdom")}.crt'
-ssl::params::ssl_key_file: 'private/%{hiera("redirector::nginx::origdom")}.key'
+redirector::ssl_path: '/etc/ssl'
+redirector::nginx::ssl_cert_file: '%{hiera("redirector::ssl_path")}/certs/%{hiera("redirector::nginx::origdom")}.crt'
+redirector::nginx::ssl_key_file: '%{hiera("redirector::ssl_path")}/private/%{hiera("redirector::nginx::origdom")}.key'
 
+redirector::nginx::rewrite: '^(.*) https://www.%{hiera("redirector::nginx::origdom")}/$1 permanent'
 
-# Versions
-nginx::server::version: 1.4.4-1~precise0
+nginx::nginx_vhosts:
+  'gov.uk':
+    server_name:
+      - 'gov.uk'
+    listen_port: 80
+    ssl: false
+    www_root: '/usr/share/nginx/html'
+    location_cfg_prepend:
+      expires: '15m'
+      error_page: '403 500 503 504 =503 /error/503.html'
+      rewrite: '%{hiera("redirector::nginx::rewrite")}'
+  'ssl_gov.uk':
+    server_name:
+      - 'gov.uk'
+    listen_port: 443
+    ssl: true
+    ssl_key: %{hiera("redirector::nginx::ssl_key_file")}
+    ssl_cert: %{hiera("redirector::nginx::ssl_cert_file")}
+    www_root: '/usr/share/nginx/html'
+    location_cfg_prepend:
+      expires: '15m'
+      error_page: '403 500 503 504 =503 /error/503.html'
+      rewrite: '%{hiera("redirector::nginx::rewrite")}'
 
 # Account management
 redirector::gds_sudo:

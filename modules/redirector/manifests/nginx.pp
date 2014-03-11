@@ -31,9 +31,11 @@
 # Copyright 2014 Crown Copyright
 #
 class redirector::nginx (
-  $origdom  = '',
-  $ssl_cert = '',
-  $ssl_key  = '',
+  $origdom,
+  $cert,
+  $key,
+  $ssl_cert_file,
+  $ssl_key_file,
 ){
 
   File {
@@ -41,25 +43,18 @@ class redirector::nginx (
     group         => root,
   }
 
-  #nginx vhost and ssl bits
-  nginx::vhost::redirect {$origdom:
-    ssl            => true,
-    isdefaultvhost => true,
-    dest           => "https://www.${origdom}",
-    notify         => Service['nginx'],
-  }
-
-  file {"${ssl::params::ssl_path}/${ssl::params::ssl_cert_file}":
+  file {$ssl_cert_file:
     ensure         => file,
     mode           => '0644',
-    content        => $ssl_cert,
-    notify         => Service['nginx'],
+    content        => $cert,
+    notify         => Class['nginx::service'],
   }
 
-  file {"${ssl::params::ssl_path}/${ssl::params::ssl_key_file}":
+  file {$ssl_key_file:
     ensure         => file,
     mode           => '0400',
-    content        => $ssl_key,
-    notify         => Service['nginx'],
+    content        => $key,
+    notify         => Class['nginx::service'],
   }
+
 }
