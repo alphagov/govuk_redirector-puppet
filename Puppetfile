@@ -5,12 +5,7 @@ mod 'puppetlabs/apt', '~> 1.3.0'
 mod 'attachmentgenie/ufw', '1.1.0'
 mod 'attachmentgenie/ssh', '1.1.1'
 mod 'saz/sudo', '3.0.1'
-
-mod "nginx",
-  :git => "git://github.com/alphagov/puppet-nginx.git"
-
-mod "ssl",
-  :git => "git://github.com/alphagov/puppet-ssl.git"
+mod 'jfryman/nginx', '0.0.7'
 
 mod 'gds_accounts',
   :git => 'git://github.com/alphagov/puppet-gds_accounts.git',
