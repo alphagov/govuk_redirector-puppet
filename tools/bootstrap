@@ -11,7 +11,10 @@ fi
 
 apt-get install -y -qq --no-upgrade ruby1.9.1 puppet='3.2.*' puppet-common='3.2.*' rubygems
 
-gem install --no-ri --no-rdoc hiera-eyaml hiera-eyaml-gpg
+if ! gem list -i hiera-eyaml-gpg
+then
+  gem install --no-ri --no-rdoc hiera-eyaml-gpg
+fi
 
 mkdir -p /etc/puppet/keys
 chmod 700 /etc/puppet/keys
