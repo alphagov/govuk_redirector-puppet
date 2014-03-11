@@ -10,6 +10,7 @@ if ! dpkg -l puppetlabs-release >/dev/null; then
 fi
 
 apt-get install -y -qq --no-upgrade ruby1.9.1 puppet='3.2.*' puppet-common='3.2.*' rubygems
+gem install bundler
 
 if [ -a /vagrant/tools/keys/pubring.gpg ]
   then

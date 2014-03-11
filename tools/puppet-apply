@@ -2,7 +2,8 @@
 set -e
 
 cd "$(dirname "$0")/.."
-sudo puppet apply \
+bundle install --path vendor/gems
+sudo bundle exec puppet apply \
   --hiera_config hiera.yaml \
   --manifestdir manifests \
   --modulepath modules:vendor/modules \
