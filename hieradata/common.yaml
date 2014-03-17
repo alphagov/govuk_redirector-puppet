@@ -28,31 +28,30 @@ redirector::ssl_path: '/etc/ssl'
 redirector::nginx::ssl_cert_file: '%{hiera("redirector::ssl_path")}/certs/%{hiera("redirector::nginx::origdom")}.crt'
 redirector::nginx::ssl_key_file: '%{hiera("redirector::ssl_path")}/private/%{hiera("redirector::nginx::origdom")}.key'
 
-redirector::nginx::rewrite: '^(.*) https://www.%{hiera("redirector::nginx::origdom")}/$1 permanent'
+redirector::nginx::rewrite: '301 https://www.%{hiera("redirector::nginx::origdom")}/$request_uri'
 
+nginx::confd_purge: true
 nginx::nginx_vhosts:
-  'gov.uk':
+  '10-gov.uk':
     server_name:
-      - 'gov.uk'
+      - '_'
     listen_port: 80
+    listen_options: default
     ssl: false
     www_root: '/usr/share/nginx/html'
     location_cfg_prepend:
-      expires: '15m'
-      error_page: '403 500 503 504 =503 /error/503.html'
-      rewrite: '%{hiera("redirector::nginx::rewrite")}'
-  'ssl_gov.uk':
+      return: '%{hiera("redirector::nginx::rewrite")}'
+  '20-ssl_gov.uk':
     server_name:
-      - 'gov.uk'
+      - '_'
     listen_port: 443
+    listen_options: default
     ssl: true
-    ssl_key: %{hiera("redirector::nginx::ssl_key_file")}
-    ssl_cert: %{hiera("redirector::nginx::ssl_cert_file")}
+    ssl_key: '%{hiera("redirector::nginx::ssl_key_file")}'
+    ssl_cert: '%{hiera("redirector::nginx::ssl_cert_file")}'
     www_root: '/usr/share/nginx/html'
     location_cfg_prepend:
-      expires: '15m'
-      error_page: '403 500 503 504 =503 /error/503.html'
-      rewrite: '%{hiera("redirector::nginx::rewrite")}'
+      return: '%{hiera("redirector::nginx::rewrite")}'
 
 # Account management
 redirector::gds_sudo:
