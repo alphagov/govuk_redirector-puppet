@@ -28,7 +28,7 @@ redirector::ssl_path: '/etc/ssl'
 redirector::nginx::ssl_cert_file: '%{hiera("redirector::ssl_path")}/certs/%{hiera("redirector::nginx::origdom")}.crt'
 redirector::nginx::ssl_key_file: '%{hiera("redirector::ssl_path")}/private/%{hiera("redirector::nginx::origdom")}.key'
 
-redirector::nginx::rewrite: '301 https://www.%{hiera("redirector::nginx::origdom")}/$request_uri'
+redirector::nginx::rewrite: '301 https://www.%{hiera("redirector::nginx::origdom")}$request_uri'
 
 nginx::confd_purge: true
 nginx::nginx_vhosts:
