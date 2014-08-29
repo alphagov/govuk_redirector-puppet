@@ -13,6 +13,7 @@ classes:
   - redirector
   - redirector::firewall
   - redirector::nginx
+  - redirector::supported_kernel
 
 puppet::puppet_ensure: '3.2.3-1puppetlabs1'
 puppet::facter_ensure: '1.7.2-1puppetlabs1'
@@ -29,6 +30,8 @@ redirector::nginx::ssl_cert_file: '%{hiera("redirector::ssl_path")}/certs/%{hier
 redirector::nginx::ssl_key_file: '%{hiera("redirector::ssl_path")}/private/%{hiera("redirector::nginx::origdom")}.key'
 
 redirector::nginx::rewrite: '301 https://www.%{hiera("redirector::nginx::origdom")}$request_uri'
+
+redirector::supported_kernel::hwe_ver: 'trusty'
 
 nginx::confd_purge: true
 nginx::nginx_vhosts:
